@@ -3,7 +3,32 @@ addEventListener("fetch", (event) => {
 });
 
 async function handleRequest(request) {
-  return new Response(svg(500), {
+  const url = request.url;
+
+  // Function to parse query strings
+  function getParameterByName(name) {
+    name = name.replace(/[\[\]]/g, "\\$&");
+    name = name.replace(/\//g, "");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+
+    if (!results) return null;
+    else if (!results[2]) return "";
+    else if (results[2]) {
+      results[2] = results[2].replace(/\//g, "");
+    }
+
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  // Usage example
+  var score = getParameterByName("score");
+
+  if (typeof score === "undefined") {
+    score = 0;
+  }
+
+  return new Response(svg(score), {
     headers: { "content-type": "image/svg+xml" },
   });
 }
