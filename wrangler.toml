@@ -6,3 +6,10 @@ workers_dev = true
 route = ""
 zone_id = ""
 compatibility_date = "2021-10-24"
+
+[env.production]
+# The ID of the domain to deploying to
+zone_id = "8c674072b8c5812aad41bdb4d5913a34"
+
+# The route pattern your Workers application will be served at
+route = "svg.nftpass.xyz/*"
